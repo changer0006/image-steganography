@@ -1,0 +1,5 @@
+Flask
+Pillow
+stegano==0.11.3
+pycryptodome
+Werkzeug
