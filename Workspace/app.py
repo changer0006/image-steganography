@@ -71,12 +71,8 @@ def decrypt_route():
     message, status = decrypt.reveal_text_from_image(encrypted_path, key)
     print(f"Reveal result: message={message}, status={status}")
     
-    if message:
-        flash(f'Decrypted Message: {message}')
-    else:
-        flash(status)
-    
-    return redirect(url_for('index'))
+    decrypted_text = message if message else "Decryption failed or no hidden message found"
+    return render_template("decrypt.html", message=decrypted_text)
 
 if __name__ == '__main__':
     app.run(debug=True)

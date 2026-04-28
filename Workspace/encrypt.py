@@ -21,7 +21,7 @@ def encrypt_text(plain_text, key):
 # Encrypt the text and hide it inside an image using LSB steganography.
 def hide_text_in_image(secret_text, input_image, output_image, key):
     encrypted_text = encrypt_text(secret_text, key)
-    image = Image.open(input_image)
+    image = Image.open(input_image).convert("RGB")
     stego_image = lsb.hide(image, encrypted_text)
     stego_image.save(output_image)
     return "Secret message encrypted and hidden in the image successfully!"

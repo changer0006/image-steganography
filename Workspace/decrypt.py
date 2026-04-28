@@ -21,7 +21,7 @@ def decrypt_text(encrypted_text, key):
 # Extract the hidden encrypted text from the image and decrypt it.
 def reveal_text_from_image(stego_image_path, key):
     try:
-        image = Image.open(stego_image_path)
+        image = Image.open(stego_image_path).convert("RGB")
         encrypted_text = lsb.reveal(image)  # Extract encrypted text from image
     except IndexError:
         return None, "No hidden message found in the image!"

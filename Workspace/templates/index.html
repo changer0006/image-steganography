@@ -724,7 +724,7 @@
     </nav>
 
     <main class="page">
-        <section class="hero-section">
+        <section class="hero-section reveal">
             <div class="hero">
                 <div class="hero-header">
                     <div class="section-label">Cybersecurity Steganography</div>
@@ -738,22 +738,22 @@
             </div>
         </section>
 
-        <section id="features" class="features">
-            <div class="feature-card">
+        <section id="features" class="features reveal">
+            <div class="feature-card reveal">
                 <div>
                     <div class="feature-icon">🔒</div>
                     <div class="feature-title">Secure</div>
                     <p class="feature-copy">AES encryption protects your data with military-grade security.</p>
                 </div>
             </div>
-            <div class="feature-card">
+            <div class="feature-card reveal">
                 <div>
                     <div class="feature-icon">👁️</div>
                     <div class="feature-title">Invisible</div>
                     <p class="feature-copy">LSB steganography hides data inside images without visual change.</p>
                 </div>
             </div>
-            <div class="feature-card">
+            <div class="feature-card reveal">
                 <div>
                     <div class="feature-icon">⚡</div>
                     <div class="feature-title">Fast</div>
@@ -762,21 +762,21 @@
             </div>
         </section>
 
-        <section id="how-it-works" class="how-it-works">
+        <section id="how-it-works" class="how-it-works reveal">
             <div class="section-label">Process</div>
             <h2 class="section-title">How It Works</h2>
             <div class="steps-grid">
-                <div class="step-card">
+                <div class="step-card reveal">
                     <div class="step-number">01</div>
                     <h3 class="step-title">Upload Image</h3>
                     <p class="step-description">Select a cover image to hide your message</p>
                 </div>
-                <div class="step-card">
+                <div class="step-card reveal">
                     <div class="step-number">02</div>
                     <h3 class="step-title">Encrypt & Hide</h3>
                     <p class="step-description">Your message is encrypted using AES and embedded using LSB</p>
                 </div>
-                <div class="step-card">
+                <div class="step-card reveal">
                     <div class="step-number">03</div>
                     <h3 class="step-title">Download Result</h3>
                     <p class="step-description">Get the secured image with hidden data</p>
@@ -784,21 +784,21 @@
             </div>
         </section>
 
-        <section id="use-cases" class="use-cases">
+        <section id="use-cases" class="use-cases reveal">
             <div class="section-label">Applications</div>
             <h2 class="section-title">Real Use Cases</h2>
             <div class="use-cases-grid">
-                <div class="use-case-card">
+                <div class="use-case-card reveal">
                     <div class="use-case-icon">💬</div>
                     <h3 class="use-case-title">Secure Communication</h3>
                     <p class="use-case-description">Send confidential messages like personal secrets, business details, or sensitive information hidden inside images. This prevents interception by third parties and ensures your data remains private during transmission.</p>
                 </div>
-                <div class="use-case-card">
+                <div class="use-case-card reveal">
                     <div class="use-case-icon">📁</div>
                     <h3 class="use-case-title">Private Data Sharing</h3>
                     <p class="use-case-description">Hide sensitive data such as passwords, notes, or documents inside images before sharing over email or messaging apps. This adds an extra layer of security, making it harder for unauthorized access to your information.</p>
                 </div>
-                <div class="use-case-card">
+                <div class="use-case-card reveal">
                     <div class="use-case-icon">🔇</div>
                     <h3 class="use-case-title">Stealth Messaging</h3>
                     <p class="use-case-description">Communicate secretly over public platforms like social media or chat apps without drawing attention. Your messages are embedded invisibly in images, allowing discreet conversations that blend in with regular content.</p>
@@ -806,7 +806,7 @@
             </div>
         </section>
 
-        <section id="cta" class="cta-section">
+        <section id="cta" class="cta-section reveal">
             <div class="cta-content">
                 <h2 class="cta-title">Start Securing Your Messages Today</h2>
                 <p class="cta-subtitle">Encrypt sensitive information with military-grade AES encryption and hide it invisibly inside images using LSB steganography.</p>
@@ -876,8 +876,73 @@
                 <p class="footer-copyright">© 2026 SteganoSecure. All rights reserved.</p>
             </div>
         </footer>
+
+        <!-- Decrypted Message Modal -->
+        <div class="modal fade" id="decryptedMessageModal" tabindex="-1" aria-labelledby="decryptedMessageLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px;">
+                    <div class="modal-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+                        <h5 class="modal-title" id="decryptedMessageLabel" style="color: #7effa2; font-weight: 700;">🔓 Decrypted Message</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="color: #cbd5e1; font-size: 1rem; line-height: 1.6;">
+                        <p id="messageContent" style="margin: 0; word-break: break-word; white-space: pre-wrap;"></p>
+                    </div>
+                    <div class="modal-footer" style="border-top: 1px solid rgba(255, 255, 255, 0.08);">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="copyMessageBtn">Copy to Clipboard</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9u1R12wYcf77zYn9THn1y3DZeqAXnJ2EZQwUOHgnLYO7bNPkqCLn6Z68" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const parallaxBg = document.querySelector('.parallax-bg');
+                if (parallaxBg) {
+                    parallaxBg.style.transform = `translateY(${scrolled * 0.1}px)`;
+                }
+            });
+
+            {% if decrypted_message %}
+            const message = "{{ decrypted_message | safe }}";
+            const messageContent = document.getElementById('messageContent');
+            messageContent.textContent = message;
+            
+            const modal = new bootstrap.Modal(document.getElementById('decryptedMessageModal'));
+            modal.show();
+            
+            document.getElementById('copyMessageBtn').addEventListener('click', function() {
+                navigator.clipboard.writeText(message).then(function() {
+                    const btn = document.getElementById('copyMessageBtn');
+                    const originalText = btn.textContent;
+                    btn.textContent = 'Copied!';
+                    setTimeout(function() {
+                        btn.textContent = originalText;
+                    }, 2000);
+                });
+            });
+            {% endif %}
+        });
+    </script>
 </body>
 </html>
