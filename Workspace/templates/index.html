@@ -4,925 +4,475 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SteganoSecure</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            color-scheme: dark;
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background-color: #070707;
-            color: #edf2f7;
-            text-rendering: optimizeLegibility;
-            font-smoothing: antialiased;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .reveal.revealed {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .feature-card:nth-child(1) { transition-delay: 0.1s; }
-        .feature-card:nth-child(2) { transition-delay: 0.2s; }
-        .feature-card:nth-child(3) { transition-delay: 0.3s; }
-
-        .step-card:nth-child(1) { transition-delay: 0.1s; }
-        .step-card:nth-child(2) { transition-delay: 0.2s; }
-        .step-card:nth-child(3) { transition-delay: 0.3s; }
-
-        .use-case-card:nth-child(1) { transition-delay: 0.1s; }
-        .use-case-card:nth-child(2) { transition-delay: 0.2s; }
-        .use-case-card:nth-child(3) { transition-delay: 0.3s; }
-
-        .parallax-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at top left, rgba(44, 126, 208, 0.16), transparent 22%),
-                        radial-gradient(circle at bottom right, rgba(76, 175, 80, 0.12), transparent 25%);
-            z-index: -1;
-            will-change: transform;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --primary: #6C5CE7;
+            --primary-hover: #5A4FCF;
+            --secondary: #00CEC9;
+            --dark: #2D3436;
+            --light: #F8F9FA;
+            --white: #FFFFFF;
+            --gray: #636E72;
+            --shadow-soft: 0 20px 40px rgba(0, 0, 0, 0.04);
+            --shadow-hover: 0 30px 60px rgba(108, 92, 231, 0.12);
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         body {
-            background: #090909;
-            padding-top: 88px;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
         }
 
-        .navbar {
+        /* Navbar */
+        .navbar-custom {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 20px 0;
             position: fixed;
-            top: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: min(100%, calc(100% - 32px));
-            max-width: 1160px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 24px;
-            border-radius: 24px;
-            background: rgba(10, 14, 22, 0.92);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
-            backdrop-filter: blur(14px);
-            z-index: 100;
-        }
-
-        .nav-group {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 22px;
-        }
-
-        .nav-link {
-            color: #cbd5e1;
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: color 0.2s ease, transform 0.2s ease;
-        }
-
-        .nav-link:hover {
-            color: #7effa2;
-            transform: translateY(-1px);
-        }
-
-        .nav-link.active {
-            color: #7effa2;
-        }
-
-        .btn-cta {
-            border-radius: 14px;
-            padding: 12px 24px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #56db9d, #3bb99a);
-            color: #070707;
-            box-shadow: 0 18px 30px rgba(53, 178, 133, 0.24);
-            border: none;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .btn-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 22px 38px rgba(53, 178, 133, 0.32);
-        }
-
-        .brand {
-            font-size: 1.35rem;
-            font-weight: 800;
-            color: #7effa2;
-            letter-spacing: 0.05em;
-        }
-
-        .brand span {
-            color: #ffffff;
-        }
-
-        .page {
             width: 100%;
-            max-width: 1160px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: grid;
-            gap: 24px;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+            transition: var(--transition);
         }
-
+        .navbar-brand {
+            font-weight: 800;
+            color: var(--dark);
+            font-size: 1.5rem;
+            letter-spacing: -0.5px;
+        }
+        .navbar-brand span {
+            color: var(--primary);
+        }
+        
+        /* Hero Section */
         .hero-section {
+            padding: 180px 0 120px;
+            min-height: 100vh;
             display: flex;
             align-items: center;
-            justify-content: center;
-            min-height: calc(100vh - 200px);
-            padding: 60px 0;
+            background: radial-gradient(circle at 10% 20%, rgba(108, 92, 231, 0.03) 0%, transparent 40%),
+                        radial-gradient(circle at 90% 80%, rgba(0, 206, 201, 0.03) 0%, transparent 40%);
         }
-
-        .hero {
-            display: grid;
-            gap: 20px;
-            padding: 40px 44px;
-            border-radius: 32px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 28px 70px rgba(0, 0, 0, 0.32);
-            width: 100%;
-        }
-
-        .hero-header {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            max-width: 720px;
-        }
-
         .hero-title {
-            font-size: clamp(2.5rem, 4vw, 4.5rem);
-            line-height: 0.95;
-            letter-spacing: -0.06em;
-            color: #ffffff;
-        }
-
-        .hero-title .highlight {
-            color: #7effa2;
-        }
-
-        .hero-subtitle {
-            font-size: 1.05rem;
-            color: #cbd5e1;
-            line-height: 1.9;
-            max-width: 680px;
-        }
-
-        .hero-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            margin-top: 16px;
-        }
-
-        .btn {
-            border: none;
-            border-radius: 16px;
-            padding: 16px 26px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-            box-shadow: 0 16px 28px rgba(0, 0, 0, 0.25);
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #56db9d, #3dbd9d);
-            color: #070707;
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.08);
-            color: #d7e1ed;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 34px rgba(0, 0, 0, 0.32);
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 20px;
-        }
-
-        .feature-card {
-            padding: 28px;
-            border-radius: 24px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-            min-height: 210px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            text-align: center;
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 14px;
-        }
-
-        .feature-title {
-            font-size: 1.3rem;
-            margin-bottom: 14px;
-            color: #7effa2;
-        }
-
-        .feature-copy {
-            color: #cbd5e1;
-            line-height: 1.8;
-            font-size: 0.98rem;
-        }
-
-        .section-label {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 0.24em;
-            color: #7f8aa2;
-            margin-bottom: 12px;
-        }
-
-        .section-title {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 36px;
-            letter-spacing: -0.02em;
-        }
-
-        .how-it-works {
-            padding: 48px 0;
-        }
-
-        .use-cases {
-            padding: 48px 0;
-        }
-
-        .use-cases-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 24px;
-        }
-
-        .use-case-card {
-            padding: 32px 24px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .use-case-card:hover {
-            transform: translateY(-4px);
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02), 0 16px 40px rgba(126, 255, 162, 0.08);
-        }
-
-        .use-case-icon {
-            font-size: 2.8rem;
-            margin-bottom: 16px;
-            display: inline-block;
-        }
-
-        .use-case-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #7effa2;
-            margin-bottom: 12px;
-        }
-
-        .use-case-description {
-            color: #cbd5e1;
-            font-size: 0.95rem;
-            line-height: 1.7;
-            margin: 0;
-        }
-
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 24px;
-        }
-
-        .step-card {
-            padding: 32px 24px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .step-card:hover {
-            transform: translateY(-4px);
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02), 0 16px 40px rgba(126, 255, 162, 0.08);
-        }
-
-        .step-number {
-            font-size: 3rem;
-            font-weight: 900;
-            color: rgba(126, 255, 162, 0.25);
-            margin-bottom: 12px;
-            letter-spacing: -0.02em;
-        }
-
-        .step-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #7effa2;
-            margin-bottom: 12px;
-        }
-
-        .step-description {
-            color: #cbd5e1;
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        .cta-section {
-            padding: 64px 0;
-            text-align: center;
-        }
-
-        .cta-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 24px;
-            max-width: 680px;
-            margin: 0 auto;
-        }
-
-        .cta-title {
-            font-size: 2.6rem;
+            font-size: clamp(3rem, 5vw, 4.5rem);
             font-weight: 800;
-            color: #ffffff;
-            line-height: 1.2;
-            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 24px;
+            letter-spacing: -1.5px;
         }
-
-        .cta-subtitle {
-            font-size: 1.05rem;
-            color: #cbd5e1;
-            line-height: 1.8;
+        .hero-title span {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-
-        .cta-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            justify-content: center;
-            margin-top: 12px;
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--gray);
+            margin-bottom: 40px;
+            max-width: 520px;
+            line-height: 1.7;
+            font-weight: 400;
         }
-
-        .form-group label {
-            font-size: 0.95rem;
-            color: #c7d1dc;
-            font-weight: 600;
-            margin-bottom: 8px;
+        
+        /* Anti-gravity Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating-element {
+            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 30px 40px rgba(108, 92, 231, 0.15));
+            max-width: 90%;
+            margin: 0 auto;
             display: block;
         }
 
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px 16px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(255, 255, 255, 0.05);
-            color: #f5f7fb;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.25s ease, background 0.25s ease;
-            font-family: inherit;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: rgba(124, 255, 162, 0.5);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .footer {
-            text-align: center;
-            color: #7f8aa2;
-            font-size: 0.95rem;
-            padding: 16px 0;
-        }
-
-        .footer-section {
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 48px 0 24px;
-            margin-top: 48px;
-        }
-
-        .footer-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 32px;
-            margin-bottom: 32px;
-        }
-
-        .footer-left {
-            text-align: left;
-        }
-
-        .footer-brand {
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: #7effa2;
-            margin-bottom: 8px;
-        }
-
-        .footer-tagline {
-            color: #cbd5e1;
-            font-size: 0.9rem;
-            margin: 0;
-        }
-
-        .footer-center {
-            display: flex;
-            gap: 24px;
-        }
-
-        .footer-right {
-            text-align: right;
-        }
-
-        .footer-link {
-            color: #cbd5e1;
+        /* Buttons */
+        .btn-custom {
+            padding: 16px 36px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
             text-decoration: none;
-            font-size: 0.95rem;
-            transition: color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            font-size: 1.05rem;
+        }
+        .btn-primary-custom {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.2);
+        }
+        .btn-primary-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(108, 92, 231, 0.3);
+            background: var(--primary-hover);
+            color: white;
+        }
+        .btn-secondary-custom {
+            background: var(--white);
+            color: var(--dark);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.04);
+            margin-left: 16px;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+        .btn-secondary-custom:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+            color: var(--primary);
         }
 
-        .footer-link:hover {
-            color: #7effa2;
+        /* Cards Section */
+        .cards-section {
+            padding: 100px 0;
+            background: var(--white);
+            position: relative;
         }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: 24px;
+        .section-header {
             text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-title {
+            font-weight: 800;
+            font-size: 2.5rem;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+        .ag-card {
+            background: var(--white);
+            border-radius: 28px;
+            padding: 48px 32px;
+            transition: var(--transition);
+            box-shadow: var(--shadow-soft);
+            height: 100%;
+            border: 1px solid rgba(0,0,0,0.01);
+            position: relative;
+            z-index: 1;
+        }
+        .ag-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 28px;
+            background: linear-gradient(135deg, rgba(108, 92, 231, 0.03), transparent);
+            z-index: -1;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .ag-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-hover);
+        }
+        .ag-card:hover::before {
+            opacity: 1;
+        }
+        .card-icon {
+            font-size: 2.8rem;
+            margin-bottom: 24px;
+            color: var(--primary);
+        }
+        .card-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+        .card-text {
+            color: var(--gray);
+            line-height: 1.7;
+            font-size: 1.05rem;
         }
 
-        .footer-copyright {
-            color: #7f8aa2;
-            font-size: 0.85rem;
-            margin: 0;
+        /* Forms Section */
+        .forms-section {
+            padding: 120px 0;
+            background: var(--light);
+        }
+        .form-container {
+            background: var(--white);
+            padding: 50px 40px;
+            border-radius: 32px;
+            box-shadow: var(--shadow-soft);
+            margin-bottom: 40px;
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.02);
+            height: 100%;
+        }
+        .form-container:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-5px);
+        }
+        .form-title {
+            font-weight: 800;
+            margin-bottom: 32px;
+            font-size: 2rem;
+            letter-spacing: -1px;
+        }
+        .form-control {
+            border-radius: 16px;
+            padding: 16px 20px;
+            border: 1px solid rgba(0,0,0,0.06);
+            box-shadow: none;
+            background: #F8F9FA;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+        .form-control:focus {
+            border-color: var(--primary);
+            background: var(--white);
+            box-shadow: 0 0 0 4px rgba(108, 92, 231, 0.1);
+        }
+        .form-label {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+        
+        /* Modal Customization */
+        .modal-content {
+            border-radius: 28px;
+            border: none;
+            box-shadow: var(--shadow-hover);
+            overflow: hidden;
+        }
+        .modal-header {
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+            padding: 28px 32px;
+            background: var(--white);
+        }
+        .modal-body {
+            padding: 32px;
+            background: var(--light);
+        }
+        .modal-footer {
+            border-top: 1px solid rgba(0,0,0,0.04);
+            padding: 24px 32px;
+            background: var(--white);
+        }
+        .btn-close {
+            background-size: 12px;
         }
 
-        @media (max-width: 900px) {
-            .features {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .steps-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .use-cases-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+        /* Footer */
+        .footer {
+            padding: 40px 0;
+            text-align: center;
+            background: var(--white);
+            border-top: 1px solid rgba(0,0,0,0.03);
+            color: var(--gray);
+            font-weight: 500;
         }
 
-        @media (max-width: 768px) {
-            body {
-                padding-top: 80px;
-            }
-
-            .navbar {
-                top: 12px;
-                width: calc(100% - 24px);
-                padding: 16px 20px;
-            }
-
+        @media (max-width: 991px) {
             .hero-section {
-                min-height: auto;
-                padding: 40px 0;
-            }
-
-            .hero {
-                padding: 24px;
-            }
-
-            .page {
-                padding: 0 16px;
-            }
-
-            .hero-title {
-                font-size: 2.6rem;
-            }
-
-            .hero-actions {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .hero-actions .btn {
-                width: 100%;
-            }
-
-            .features {
-                grid-template-columns: 1fr;
-            }
-
-            .steps-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .use-cases-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .cta-section {
-                padding: 48px 0;
-            }
-
-            .cta-title {
-                font-size: 2rem;
-            }
-
-            .cta-actions {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .cta-actions .btn {
-                width: 100%;
-            }
-
-            .footer-container {
-                flex-direction: column;
-                align-items: center;
                 text-align: center;
-                gap: 20px;
+                padding-top: 140px;
             }
-
-            .footer-left {
-                text-align: center;
+            .hero-subtitle {
+                margin: 0 auto 40px;
             }
-
-            .footer-center {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .footer-right {
-                text-align: center;
+            .floating-element {
+                margin-top: 60px;
+                max-width: 70%;
             }
         }
-
-        @media (max-width: 520px) {
-            .navbar {
-                width: calc(100% - 16px);
-                padding: 14px 16px;
-            }
-
-            .hero {
-                padding: 20px;
-            }
-
-            .hero-title {
-                font-size: 2.2rem;
-            }
-
-            .hero-subtitle {
-                font-size: 0.95rem;
-            }
-
-            .btn {
-                padding: 14px 20px;
-                font-size: 0.95rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .step-number {
-                font-size: 2.4rem;
-            }
-
-            .step-title {
-                font-size: 1.1rem;
-            }
-
-            .step-description {
-                font-size: 0.9rem;
-            }
-
-            .use-case-icon {
-                font-size: 2.4rem;
-            }
-
-            .use-case-title {
-                font-size: 1.1rem;
-            }
-
-            .use-case-description {
-                font-size: 0.9rem;
-            }
-
-            .cta-section {
-                padding: 40px 0;
-            }
-
-            .cta-title {
-                font-size: 1.8rem;
-            }
-
-            .cta-subtitle {
-                font-size: 0.95rem;
-            }
-
-            .footer-section {
-                padding: 36px 0 16px;
-                margin-top: 36px;
-            }
-
-            .footer-brand {
-                font-size: 1.1rem;
-            }
-
-            .footer-center {
-                gap: 10px;
-            }
-
-            .footer-link {
-                font-size: 0.9rem;
-            }
-
-            .footer-copyright {
-                font-size: 0.8rem;
-            }
+        
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.8rem; }
+            .btn-secondary-custom { margin-left: 0; margin-top: 16px; display: flex; }
+            .btn-custom { width: 100%; }
+            .ag-card { padding: 40px 24px; }
+            .form-container { padding: 40px 24px; }
+            .floating-element { max-width: 90%; }
         }
     </style>
 </head>
 <body>
-    <div class="parallax-bg"></div>
-    <nav class="navbar">
-        <div class="brand">Stegano<span>Secure</span></div>
-        <div class="nav-group">
-            <div class="nav-links">
-                <a class="nav-link active" href="#">Home</a>
-                <a class="nav-link" href="#features" onclick="document.querySelector('#features').scrollIntoView({behavior:'smooth', block:'start'})">Features</a>
-                <a class="nav-link" href="#encrypt-form">Encrypt</a>
+
+    <!-- Navbar -->
+    <nav class="navbar-custom">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="navbar-brand">Stegano<span>Secure</span></div>
+            <div class="d-none d-md-block">
+                <a href="#features" class="btn-custom btn-secondary-custom" style="padding: 10px 20px; margin-left:0; background:transparent; box-shadow:none; border:none; font-size:0.95rem;">Features</a>
+                <a href="#encrypt" class="btn-custom btn-primary-custom" style="padding: 10px 24px; font-size:0.95rem;">Start Encrypting</a>
             </div>
-            <button class="btn-cta" onclick="document.querySelector('#encrypt-form input[name=cover_image]').scrollIntoView({behavior:'smooth', block:'center'})">Encrypt Now</button>
         </div>
     </nav>
 
-    <main class="page">
-        <section class="hero-section reveal">
-            <div class="hero">
-                <div class="hero-header">
-                    <div class="section-label">Cybersecurity Steganography</div>
-                    <h1 class="hero-title">Hide <span class="highlight">Messages</span> Inside Images</h1>
-                    <p class="hero-subtitle">Encrypt text with AES, embed it with LSB steganography, and keep your secrets invisible. SteganoSecure is built for safe image-based message concealment and rapid decryption.</p>
-                    <div class="hero-actions">
-                        <a href="#encrypt-form" class="btn btn-primary" onclick="document.querySelector('#encrypt-form input[name=cover_image]').scrollIntoView({behavior:'smooth', block:'center'})">Encrypt</a>
-                        <a href="#decrypt-form" class="btn btn-secondary" onclick="document.querySelector('#decrypt-form input[name=encrypted_image]').scrollIntoView({behavior:'smooth', block:'center'})">Decrypt</a>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="hero-title">Invisibly Secure<br><span>Your Data</span></h1>
+                    <p class="hero-subtitle">Military-grade AES encryption seamlessly combined with LSB steganography. Hide your sensitive messages inside ordinary images with zero visual footprint.</p>
+                    <div class="d-flex flex-column flex-md-row">
+                        <a href="#encrypt" class="btn-custom btn-primary-custom">Encrypt Message</a>
+                        <a href="#decrypt" class="btn-custom btn-secondary-custom">Decrypt Image</a>
                     </div>
                 </div>
+                <div class="col-lg-6 text-center">
+                    <img src="/static/images/hero.png" alt="Floating abstract shape" class="floating-element img-fluid">
+                </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="features" class="features reveal">
-            <div class="feature-card reveal">
-                <div>
-                    <div class="feature-icon">🔒</div>
-                    <div class="feature-title">Secure</div>
-                    <p class="feature-copy">AES encryption protects your data with military-grade security.</p>
-                </div>
+    <!-- Features Section -->
+    <section id="features" class="cards-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why SteganoSecure?</h2>
+                <p class="text-muted" style="font-size: 1.1rem;">Advanced security delivered with an elegant experience.</p>
             </div>
-            <div class="feature-card reveal">
-                <div>
-                    <div class="feature-icon">👁️</div>
-                    <div class="feature-title">Invisible</div>
-                    <p class="feature-copy">LSB steganography hides data inside images without visual change.</p>
-                </div>
-            </div>
-            <div class="feature-card reveal">
-                <div>
-                    <div class="feature-icon">⚡</div>
-                    <div class="feature-title">Fast</div>
-                    <p class="feature-copy">Quick encryption and decryption process for instant protection.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="how-it-works" class="how-it-works reveal">
-            <div class="section-label">Process</div>
-            <h2 class="section-title">How It Works</h2>
-            <div class="steps-grid">
-                <div class="step-card reveal">
-                    <div class="step-number">01</div>
-                    <h3 class="step-title">Upload Image</h3>
-                    <p class="step-description">Select a cover image to hide your message</p>
-                </div>
-                <div class="step-card reveal">
-                    <div class="step-number">02</div>
-                    <h3 class="step-title">Encrypt & Hide</h3>
-                    <p class="step-description">Your message is encrypted using AES and embedded using LSB</p>
-                </div>
-                <div class="step-card reveal">
-                    <div class="step-number">03</div>
-                    <h3 class="step-title">Download Result</h3>
-                    <p class="step-description">Get the secured image with hidden data</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="use-cases" class="use-cases reveal">
-            <div class="section-label">Applications</div>
-            <h2 class="section-title">Real Use Cases</h2>
-            <div class="use-cases-grid">
-                <div class="use-case-card reveal">
-                    <div class="use-case-icon">💬</div>
-                    <h3 class="use-case-title">Secure Communication</h3>
-                    <p class="use-case-description">Send confidential messages like personal secrets, business details, or sensitive information hidden inside images. This prevents interception by third parties and ensures your data remains private during transmission.</p>
-                </div>
-                <div class="use-case-card reveal">
-                    <div class="use-case-icon">📁</div>
-                    <h3 class="use-case-title">Private Data Sharing</h3>
-                    <p class="use-case-description">Hide sensitive data such as passwords, notes, or documents inside images before sharing over email or messaging apps. This adds an extra layer of security, making it harder for unauthorized access to your information.</p>
-                </div>
-                <div class="use-case-card reveal">
-                    <div class="use-case-icon">🔇</div>
-                    <h3 class="use-case-title">Stealth Messaging</h3>
-                    <p class="use-case-description">Communicate secretly over public platforms like social media or chat apps without drawing attention. Your messages are embedded invisibly in images, allowing discreet conversations that blend in with regular content.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="cta" class="cta-section reveal">
-            <div class="cta-content">
-                <h2 class="cta-title">Start Securing Your Messages Today</h2>
-                <p class="cta-subtitle">Encrypt sensitive information with military-grade AES encryption and hide it invisibly inside images using LSB steganography.</p>
-                <div class="cta-actions">
-                    <a href="#encrypt-form" class="btn btn-primary" onclick="document.querySelector('#encrypt-form input[name=cover_image]').scrollIntoView({behavior:'smooth', block:'center'})">Encrypt Now</a>
-                    <a href="#decrypt-form" class="btn btn-secondary" onclick="document.querySelector('#decrypt-form input[name=encrypted_image]').scrollIntoView({behavior:'smooth', block:'center'})">Decrypt</a>
-                </div>
-            </div>
-        </section>
-
-        <section class="hero">
-            <div class="hero-header">
-                <div class="section-label">Encryption</div>
-                <h2 class="feature-title">Encrypt a Message</h2>
-                <form id="encrypt-form" action="/encrypt" method="post" enctype="multipart/form-data" style="width: 100%;">
-                    <div class="form-group">
-                        <label for="cover_image">Cover Image (PNG only)</label>
-                        <input type="file" name="cover_image" accept="image/png" required>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="ag-card">
+                        <div class="card-icon">🔐</div>
+                        <h3 class="card-title">AES Encryption</h3>
+                        <p class="card-text">Your messages are secured with Advanced Encryption Standard (AES) before being hidden, ensuring total protection even if extracted.</p>
                     </div>
-                    <div class="form-group">
-                        <label for="message">Secret Message</label>
-                        <textarea name="message" rows="4" required></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" required>
-                    </div>
-                    <button class="btn btn-primary" type="submit">Encrypt and Download</button>
-                </form>
-            </div>
-        </section>
-
-        <section class="hero">
-            <div class="hero-header">
-                <div class="section-label">Decryption</div>
-                <h2 class="feature-title">Decrypt a Message</h2>
-                <form id="decrypt-form" action="/decrypt" method="post" enctype="multipart/form-data" style="width: 100%;">
-                    <div class="form-group">
-                        <label for="encrypted_image">Encrypted Image (PNG)</label>
-                        <input type="file" name="encrypted_image" accept="image/png" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" required>
-                    </div>
-                    <button class="btn btn-secondary" type="submit">Decrypt</button>
-                </form>
-            </div>
-        </section>
-
-        <footer class="footer-section">
-            <div class="footer-container">
-                <div class="footer-left">
-                    <div class="footer-brand">🔐 SteganoSecure</div>
-                    <p class="footer-tagline">Secure image-based messaging</p>
                 </div>
-                <div class="footer-center">
-                    <a href="#" class="footer-link">Home</a>
-                    <a href="#features" class="footer-link">Encrypt</a>
-                    <a href="#how-it-works" class="footer-link">Decrypt</a>
-                </div>
-                <div class="footer-right">
-                    <a href="https://github.com" target="_blank" class="footer-link">GitHub</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p class="footer-copyright">© 2026 SteganoSecure. All rights reserved.</p>
-            </div>
-        </footer>
-
-        <!-- Decrypted Message Modal -->
-        <div class="modal fade" id="decryptedMessageModal" tabindex="-1" aria-labelledby="decryptedMessageLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px;">
-                    <div class="modal-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
-                        <h5 class="modal-title" id="decryptedMessageLabel" style="color: #7effa2; font-weight: 700;">🔓 Decrypted Message</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="col-md-4">
+                    <div class="ag-card">
+                        <div class="card-icon">👻</div>
+                        <h3 class="card-title">Invisible Steganography</h3>
+                        <p class="card-text">Data is embedded at the least significant bit (LSB) level of the image pixels. The visual appearance remains completely identical to the human eye.</p>
                     </div>
-                    <div class="modal-body" style="color: #cbd5e1; font-size: 1rem; line-height: 1.6;">
-                        <p id="messageContent" style="margin: 0; word-break: break-word; white-space: pre-wrap;"></p>
-                    </div>
-                    <div class="modal-footer" style="border-top: 1px solid rgba(255, 255, 255, 0.08);">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="copyMessageBtn">Copy to Clipboard</button>
+                </div>
+                <div class="col-md-4">
+                    <div class="ag-card">
+                        <div class="card-icon">⚡</div>
+                        <h3 class="card-title">Lightning Fast</h3>
+                        <p class="card-text">Highly optimized processing ensures your images are encrypted and ready to download in milliseconds, directly from the secure server.</p>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9u1R12wYcf77zYn9THn1y3DZeqAXnJ2EZQwUOHgnLYO7bNPkqCLn6Z68" crossorigin="anonymous"></script>
+    <!-- Forms Section -->
+    <section class="forms-section">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Encrypt Form -->
+                <div class="col-lg-6" id="encrypt">
+                    <div class="form-container">
+                        <h2 class="form-title">Encrypt Data</h2>
+                        <form action="/encrypt" method="post" enctype="multipart/form-data">
+                            <div class="mb-4">
+                                <label for="cover_image" class="form-label">Cover Image (PNG)</label>
+                                <input class="form-control" type="file" id="cover_image" name="cover_image" accept="image/png" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="message" class="form-label">Secret Message</label>
+                                <textarea class="form-control" id="message" name="message" rows="4" placeholder="Enter the sensitive text you want to hide..." required></textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label for="password" class="form-label">Encryption Password</label>
+                                <input class="form-control" type="password" id="password" name="password" placeholder="Choose a strong password" required>
+                            </div>
+                            <button type="submit" class="btn-custom btn-primary-custom w-100 mt-2">Encrypt & Download</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Decrypt Form -->
+                <div class="col-lg-6" id="decrypt">
+                    <div class="form-container">
+                        <h2 class="form-title">Decrypt Data</h2>
+                        <form action="/decrypt" method="post" enctype="multipart/form-data">
+                            <div class="mb-4">
+                                <label for="encrypted_image" class="form-label">Encrypted Image (PNG)</label>
+                                <input class="form-control" type="file" id="encrypted_image" name="encrypted_image" accept="image/png" required>
+                            </div>
+                            <div class="mb-4">
+                                <label for="decrypt_password" class="form-label">Decryption Password</label>
+                                <input class="form-control" type="password" id="decrypt_password" name="password" placeholder="Enter the password used to encrypt" required>
+                            </div>
+                            <div class="mt-4 pt-4">
+                                <button type="submit" class="btn-custom btn-secondary-custom w-100 m-0" style="background: var(--dark); color: white;">Reveal Secret</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="mb-0">© 2026 SteganoSecure. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Decrypted Message Modal -->
+    <div class="modal fade" id="decryptedMessageModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" style="color: var(--primary);">🔓 Decrypted Message</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="messageContent" style="margin: 0; word-break: break-word; white-space: pre-wrap; font-size: 1.05rem; color: var(--dark);"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light rounded-pill px-4 fw-medium" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn-custom btn-primary-custom" style="padding: 10px 24px;" id="copyMessageBtn">Copy to Clipboard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.4/ScrollTrigger.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
+            // Initialize GSAP ScrollTrigger
+            gsap.registerPlugin(ScrollTrigger);
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('revealed');
-                    }
-                });
-            }, observerOptions);
+            // 1. Hero Section (On Load)
+            gsap.from(".hero-title", { y: 40, opacity: 0, duration: 1, ease: "power3.out", delay: 0.1 });
+            gsap.from(".hero-subtitle", { y: 30, opacity: 0, duration: 1, ease: "power3.out", delay: 0.3 });
+            // Animate wrapper to avoid CSS transition conflict on buttons
+            gsap.from(".hero-section .d-flex", { y: 20, opacity: 0, duration: 0.8, ease: "power3.out", delay: 0.5 });
+            // Animate wrapper to avoid overriding CSS @keyframes float on the image
+            gsap.from(".hero-section .col-lg-6.text-center", { scale: 0.9, opacity: 0, duration: 1.2, ease: "power2.out", delay: 0.2 });
 
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                const parallaxBg = document.querySelector('.parallax-bg');
-                if (parallaxBg) {
-                    parallaxBg.style.transform = `translateY(${scrolled * 0.1}px)`;
-                }
+            // 2. Features Section (On Scroll)
+            gsap.from(".section-header", {
+                scrollTrigger: { trigger: "#features", start: "top 85%" },
+                y: 30, opacity: 0, duration: 0.8, ease: "power3.out"
+            });
+            // Animate wrappers to prevent CSS transition lag on .ag-card
+            gsap.from("#features .col-md-4", {
+                scrollTrigger: { trigger: ".cards-section", start: "top 75%" },
+                y: 40, opacity: 0, duration: 0.8, ease: "power3.out", stagger: 0.2
             });
 
+            // 3. Forms Section (On Scroll)
+            // Animate wrappers to prevent CSS transition lag on .form-container
+            gsap.from(".forms-section .col-lg-6", {
+                scrollTrigger: { trigger: ".forms-section", start: "top 80%" },
+                y: 40, opacity: 0, duration: 0.8, ease: "power3.out", stagger: 0.2
+            });
+
+            // Handle Jinja2 decrypted message
             {% if decrypted_message %}
             const message = "{{ decrypted_message | safe }}";
             const messageContent = document.getElementById('messageContent');
@@ -942,6 +492,20 @@
                 });
             });
             {% endif %}
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if(target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
         });
     </script>
 </body>
